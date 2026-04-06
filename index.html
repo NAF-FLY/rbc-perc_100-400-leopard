@@ -15,6 +15,7 @@
       --button-height: 63px;
       --button-card-gap: 6px;
       --card-height: 166px;
+      --card-final-height: 123px;
     }
 
     html, body {
@@ -145,7 +146,8 @@
       transform: translate3d(-50%, calc(var(--card-height) + 40px), 0);
       animation:
         cardReveal 1.15s cubic-bezier(.2, .8, .2, 1) 1.5s forwards,
-        cardLift 1.2s cubic-bezier(.22, .7, .2, 1) 4.9s forwards;
+        cardLift 1.2s cubic-bezier(.22, .7, .2, 1) 4.9s forwards,
+        cardShrink 1.2s cubic-bezier(.22, .7, .2, 1) 4.9s forwards;
     }
 
     .offer-title {
@@ -389,6 +391,15 @@
       }
       to {
         transform: translate3d(-50%, calc((var(--button-height) + var(--button-card-gap)) * -1), 0);
+      }
+    }
+
+    @keyframes cardShrink {
+      from {
+        height: var(--card-height);
+      }
+      to {
+        height: var(--card-final-height);
       }
     }
 
