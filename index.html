@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  <meta name="ad.size" content="width=100%,height=400" />
+  <script type="text/javascript" src="https://ds.serving-sys.ru/BurstingScript/EBLoader.js"></script>
+  <title>RBC 100% x 400 Leopard</title>
+  <style>
+    :root {
+      --hero-reference-width: 700px;
+      --banner-height: 400px;
+      --content-side-gap: 9px;
+      --button-bottom: 24px;
+      --button-height: 63px;
+      --button-card-gap: 6px;
+      --card-height: 166px;
+    }
+
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: var(--banner-height);
+      overflow: hidden;
+      background: #000;
+    }
+
+    .banner {
+      display: block;
+      position: relative;
+      width: 100%;
+      min-width: var(--layout-width);
+      max-width: 700px;
+      height: var(--banner-height);
+      overflow: hidden;
+      background: #000;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .layer {
+      position: absolute;
+      display: block;
+      user-select: none;
+      -webkit-user-drag: none;
+      pointer-events: none;
+    }
+
+    .bg {
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .hero-layout {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      width: var(--hero-reference-width);
+      height: 100%;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    .bottom-fade {
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 172px;
+      z-index: 1;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, .24) 40%, rgba(0, 0, 0, .72) 100%);
+    }
+
+    .corner-logo {
+      right: 16px;
+      bottom: 32.5px;
+      width: 118.26px;
+      height: 87.09px;
+      z-index: 3;
+      opacity: 1;
+      will-change: opacity;
+      animation: cornerLogoFade .35s ease-out 1.05s forwards;
+    }
+
+    .boss {
+      left: -1137px;
+      top: 0;
+      width: 1292px;
+      height: 1192px;
+      transform: translate3d(296px, 400px, 0) scale3d(2.5, 2.5, 1);
+      transform-origin: center;
+      will-change: transform;
+      backface-visibility: hidden;
+      animation: bossAnim 8.2s cubic-bezier(.22, .61, .36, 1) forwards;
+    }
+
+    .leopard {
+      left: -488px;
+      top: 147px;
+      width: 435px;
+      height: 713px;
+      opacity: 1;
+      transform: translate3d(898px, 388px, 0) scale3d(2.5, 2.5, 1);
+      transform-origin: center;
+      will-change: transform;
+      backface-visibility: hidden;
+      animation: leopardAnim 8.2s cubic-bezier(.22, .61, .36, 1) forwards;
+    }
+
+    .offer-card,
+    .bottom-panel-glow,
+    .cta-button,
+    .disclaimer {
+      position: absolute;
+      z-index: 5;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #fff;
+    }
+
+    .bottom-panel-glow {
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 108px;
+      background: linear-gradient(180deg, rgba(111, 116, 126, 0) 0%, rgba(111, 116, 126, .9) 100%);
+      opacity: 0;
+      z-index: 2;
+      transform: translate3d(0, 42px, 0);
+      animation: bottomPanelGlowReveal 1s cubic-bezier(.2, .8, .2, 1) 1.5s forwards;
+    }
+
+    .offer-card {
+      left: 50%;
+      bottom: var(--button-bottom);
+      width: min(calc(100% - (var(--content-side-gap) * 2)), 682px);
+      height: var(--card-height);
+      padding: 20px;
+      border-radius: 16px;
+      background: #000;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, .22);
+      transform: translate3d(-50%, calc(var(--card-height) + 40px), 0);
+      animation:
+        cardReveal 1.15s cubic-bezier(.2, .8, .2, 1) 1.5s forwards,
+        cardLift 1.2s cubic-bezier(.22, .7, .2, 1) 4.9s forwards;
+    }
+
+    .offer-title {
+      margin: 0;
+      width: 298.48px;
+      height: 68.72px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .title-row {
+      position: relative;
+      left: 0;
+      overflow: hidden;
+    }
+
+    .title-row.row-1 {
+      width: 298.48px;
+      height: 30.48px;
+    }
+
+    .title-row.row-2 {
+      width: 287.64px;
+      height: 38.72px;
+    }
+
+    .title-face {
+      position: absolute;
+      inset: 0;
+      display: block;
+    }
+
+    .title-face img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: block;
+      width: auto;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .title-row.row-1 .title-face img {
+      width: 298.48px;
+      height: 26px;
+    }
+
+    .title-row.row-1 .title-face.next img {
+      width: 286.45px;
+      height: 30.48px;
+    }
+
+    .title-row.row-2 .title-face.current img {
+      left: -3px;
+      width: 212.67px;
+      height: 30.48px;
+    }
+
+    .title-row.row-2 .title-face.next img {
+      width: 287.64px;
+      height: 38.72px;
+    }
+
+    .title-face.current {
+      opacity: 0;
+      transform: translate3d(0, 100%, 0);
+      animation:
+        titleCurrentEnter 1.28s cubic-bezier(.22, .61, .36, 1) forwards,
+        titleCurrentFlip 1.12s cubic-bezier(.22, .61, .36, 1) forwards;
+    }
+
+    .title-face.next {
+      opacity: 0;
+      transform: translate3d(0, 100%, 0);
+      animation: titleNextFlip 1.12s cubic-bezier(.22, .61, .36, 1) forwards;
+    }
+
+    .title-row.row-1 .title-face.current {
+      animation-delay: 2.38s, 4.98s;
+    }
+
+    .title-row.row-2 .title-face.current {
+      animation-delay: 2.38s, 5.12s;
+    }
+
+    .title-row.row-1 .title-face.next {
+      animation-delay: 4.98s;
+    }
+
+    .title-row.row-2 .title-face.next {
+      animation-delay: 5.12s;
+    }
+
+    .offer-bottom {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-end;
+    }
+
+    .t2-logo {
+      display: block;
+      width: 118.26px;
+      height: 87.09px;
+      min-width: 118.26px;
+      max-width: 118.26px;
+      min-height: 87.09px;
+      max-height: 87.09px;
+      flex: 0 0 118.26px;
+      align-self: flex-end;
+      opacity: 0;
+      transform: translate3d(0, 22px, 0) scale(.92);
+      transform-origin: 50% 100%;
+      animation: logoReveal .82s cubic-bezier(.2, .8, .2, 1) 2.62s forwards;
+    }
+
+    .t2-logo:not([src]),
+    .final-screen-logo:not([src]) {
+      visibility: hidden;
+    }
+
+    .cta-button {
+      left: 50%;
+      bottom: var(--button-bottom);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: min(calc(100% - (var(--content-side-gap) * 2)), 682px);
+      height: var(--button-height);
+      border: 0;
+      border-radius: 100px;
+      background: #ff3495;
+      transform: translate3d(-50%, calc(var(--button-height) + 48px), 0);
+      opacity: 0;
+      animation: buttonReveal 1.1s cubic-bezier(.22, .7, .2, 1) 4.9s forwards;
+    }
+
+    .cta-button img {
+      display: block;
+      width: 136px;
+      height: 16px;
+    }
+
+    .disclaimer {
+      left: 8px;
+      bottom: 7px;
+      z-index: 6;
+      width: auto;
+      font-weight: 400;
+      font-size: 11px;
+      line-height: 1.1;
+      color: #fff;
+      text-align: left;
+    }
+
+    .final-fade {
+      inset: 0;
+      z-index: 10;
+      background: #000;
+      opacity: 0;
+      animation: finalFade .55s ease-out 7.85s forwards;
+    }
+
+    .final-screen {
+      inset: 0;
+      z-index: 11;
+      opacity: 0;
+      animation: finalScreenReveal .7s ease-out 8.2s forwards;
+    }
+
+    .final-screen-logo {
+      left: 0;
+      right: 0;
+      top: 90px;
+      width: 271.61px;
+      height: 200px;
+      min-width: 271.61px;
+      max-width: 271.61px;
+      min-height: 200px;
+      max-height: 200px;
+      margin: 0 auto;
+      transform: translate3d(0, 18px, 0);
+      opacity: 0;
+      animation: finalScreenLogo .75s cubic-bezier(.22, .72, .2, 1) 8.22s forwards;
+    }
+
+    .final-screen-copy {
+      left: 8px;
+      right: 8px;
+      bottom: 28px;
+      max-width: 525px;
+      margin: 0 auto;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 8px;
+      line-height: 1.12;
+      font-weight: 400;
+      text-align: center;
+      color: #fff;
+      opacity: 0;
+      animation: finalScreenText .75s ease-out 8.32s forwards;
+    }
+
+    @keyframes leopardAnim {
+      from {
+        transform: translate3d(898px, 388px, 0) scale3d(2.5, 2.5, 1);
+      }
+      95%,
+      to {
+        transform: translate3d(880px, -103px, 0) scale3d(1, 1, 1);
+      }
+    }
+
+    @keyframes bossAnim {
+      from {
+        transform: translate3d(296px, 400px, 0) scale3d(2.5, 2.5, 1);
+      }
+      95%,
+      to {
+        transform: translate3d(790px, -146px, 0) scale3d(1, 1, 1);
+      }
+    }
+
+    @keyframes cardReveal {
+      from {
+        transform: translate3d(-50%, calc(var(--card-height) + 40px), 0);
+      }
+      to {
+        transform: translate3d(-50%, 0, 0);
+      }
+    }
+
+    @keyframes cardLift {
+      from {
+        transform: translate3d(-50%, 0, 0);
+      }
+      to {
+        transform: translate3d(-50%, calc((var(--button-height) + var(--button-card-gap)) * -1), 0);
+      }
+    }
+
+    @keyframes bottomPanelGlowReveal {
+      from {
+        transform: translate3d(0, 42px, 0);
+        opacity: 0;
+      }
+      to {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes buttonReveal {
+      from {
+        transform: translate3d(-50%, calc(var(--button-height) + 48px), 0);
+        opacity: 0;
+      }
+      to {
+        transform: translate3d(-50%, 0, 0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes logoReveal {
+      from {
+        transform: translate3d(0, 22px, 0) scale(.92);
+        opacity: 0;
+      }
+      to {
+        transform: translate3d(0, 0, 0) scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes titleCurrentEnter {
+      0% {
+        transform: translate3d(0, 100%, 0);
+        opacity: 0;
+      }
+      100% {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes titleCurrentFlip {
+      0% {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+      }
+      100% {
+        transform: translate3d(0, -115%, 0);
+        opacity: 0;
+      }
+    }
+
+    @keyframes titleNextFlip {
+      0% {
+        transform: translate3d(0, 100%, 0);
+        opacity: 0;
+      }
+      100% {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes cornerLogoFade {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+
+    @keyframes finalFade {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes finalScreenReveal {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes finalScreenLogo {
+      from {
+        transform: translate3d(0, 18px, 0);
+        opacity: 0;
+      }
+      to {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes finalScreenText {
+      from {
+        transform: translate3d(0, 10px, 0);
+        opacity: 0;
+      }
+      to {
+        transform: translate3d(0, 0, 0);
+        opacity: .7;
+      }
+    }
+
+    @media (max-width: 460px) {
+      .corner-logo {
+        width: 104px;
+        height: 76.53px;
+      }
+
+      .offer-title {
+        transform: scale(.88);
+        transform-origin: 0 0;
+      }
+
+      .t2-logo {
+        width: 104px;
+        height: 76.7px;
+        min-width: 104px;
+        max-width: 104px;
+        min-height: 76.7px;
+        max-height: 76.7px;
+        flex-basis: 104px;
+      }
+
+      .cta-button img {
+        width: 122px;
+        height: 14.35px;
+      }
+
+      .disclaimer {
+        font-size: 9.5px;
+      }
+
+      .final-screen-copy {
+        font-size: 7px;
+      }
+
+      .final-screen-logo {
+        width: 225px;
+        height: 165.6px;
+        min-width: 225px;
+        max-width: 225px;
+        min-height: 165.6px;
+        max-height: 165.6px;
+        top: 102px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .corner-logo {
+        width: 83.2px;
+        height: 61.22px;
+      }
+
+      .t2-logo {
+        width: 75.68px;
+        height: 55.74px;
+        min-width: 75.68px;
+        max-width: 75.68px;
+        min-height: 55.74px;
+        max-height: 55.74px;
+        flex-basis: 75.68px;
+      }
+
+      .final-screen-logo {
+        width: 210px;
+        height: 154.6px;
+        min-width: 210px;
+        max-width: 210px;
+        min-height: 154.6px;
+        max-height: 154.6px;
+        top: 108px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="banner" id="button1" href="%banner.reference_mrc_user1%" target="%banner.target%" aria-label="RBC 100% x 400 Leopard">
+    <img class="layer bg" src="bg.png" alt="" />
+    <div class="hero-layout" aria-hidden="true">
+      <img class="layer boss" src="boss.png" alt="" />
+      <img class="layer leopard" src="leopard.png" alt="" />
+    </div>
+    <img class="layer corner-logo" src="logo.png" alt="" aria-hidden="true" />
+    <div class="layer bottom-fade" aria-hidden="true"></div>
+    <div class="bottom-panel-glow" aria-hidden="true"></div>
+    <div class="offer-card">
+      <div class="offer-title" aria-label="headline animation">
+        <span class="title-row row-1">
+          <span class="title-face current">
+            <img src="headline-current-top-ru.svg" alt="" aria-hidden="true" />
+          </span>
+          <span class="title-face next">
+            <img src="headline-next-top-ru.svg" alt="" aria-hidden="true" />
+          </span>
+        </span>
+        <span class="title-row row-2">
+          <span class="title-face current is-friends-t2">
+            <img src="headline-current-bottom-ru.svg" alt="" aria-hidden="true" />
+          </span>
+          <span class="title-face next">
+            <img src="headline-next-bottom-ru.svg" alt="" aria-hidden="true" />
+          </span>
+        </span>
+      </div>
+      <div class="offer-bottom">
+        <img class="t2-logo" data-gif-src="logotype.gif" data-gif-trigger="title-start" alt="" aria-hidden="true" />
+      </div>
+    </div>
+    <div class="cta-button">
+      <img src="cta-more-ru.svg" alt="Подробнее" />
+    </div>
+    <div class="disclaimer">Реклама. Рекламодатель: ООО «Т2 Мобайл», ИНН: 7743895280</div>
+    <div class="layer final-fade" aria-hidden="true"></div>
+    <div class="layer final-screen" aria-hidden="true">
+      <img class="layer final-screen-logo" data-gif-src="logotype.gif" data-gif-delay="8220" alt="" aria-hidden="true" />
+      <div class="layer final-screen-copy">Реклама. Рекламодатель: ООО «Т2 Мобайл», Россия, 108811, г. Москва, п. Московский, Киевское <br/> шоссе, 22-й километр, д. 6, стр. 1, ОГРН: 1137746610088, ИНН: 7743895280, t2.ru | 0+ <br /> Подробнее о реферальной программе на t2.ru</div>
+    </div>
+  </a>
+
+  <script>
+    (function () {
+      var button = document.getElementById('button1');
+      var titleTrigger = document.querySelector('.title-row.row-1 .title-face.current');
+      var gifPlayers = document.querySelectorAll('[data-gif-src]');
+      var adStarted = false;
+      var GIF_START_ADVANCE_MS = 180;
+
+      if (!button) {
+        return;
+      }
+
+      function getClickTag() {
+        if (typeof window.clickTag === 'string' && window.clickTag) return window.clickTag;
+        var params = new URLSearchParams(window.location.search);
+        return params.get('clickTag') || params.get('clickTAG') || '';
+      }
+
+      function hasEB() {
+        return Boolean(
+          window.EB &&
+          window.EBG &&
+          window.EBG.EventName &&
+          window.EBG.EventName.EB_INITIALIZED &&
+          typeof window.EB.isInitialized === 'function' &&
+          typeof window.EB.clickthrough === 'function'
+        );
+      }
+
+      function clickthrough1(event) {
+        if (hasEB()) {
+          event.preventDefault();
+          window.EB.clickthrough();
+          return;
+        }
+
+        var href = button.getAttribute('href') || '';
+        if (!href || href.indexOf('%banner.') === 0) {
+          event.preventDefault();
+        }
+      }
+
+      function startAd() {
+        var currentHref;
+        var clickTag;
+
+        if (adStarted) {
+          return;
+        }
+
+        adStarted = true;
+        currentHref = button.getAttribute('href') || '';
+        clickTag = getClickTag();
+
+        if (clickTag && (!currentHref || currentHref.indexOf('%banner.') === 0)) {
+          button.setAttribute('href', clickTag);
+          button.setAttribute('target', '_blank');
+          button.setAttribute('rel', 'noopener');
+        }
+
+        button.addEventListener('click', clickthrough1);
+      }
+
+      function startGif(player) {
+        var src = player.getAttribute('data-gif-src');
+        var separator;
+
+        if (!src || player.getAttribute('data-gif-started') === 'true') {
+          return;
+        }
+
+        separator = src.indexOf('?') === -1 ? '?' : '&';
+        player.setAttribute('src', src + separator + 'play=' + Date.now());
+        player.setAttribute('data-gif-started', 'true');
+      }
+
+      function getFirstAnimationDelayMs(element) {
+        var animationDelay;
+        var firstDelay;
+        var value;
+
+        if (!element) {
+          return null;
+        }
+
+        animationDelay = window.getComputedStyle(element).animationDelay || '';
+        firstDelay = animationDelay.split(',')[0];
+
+        if (!firstDelay) {
+          return null;
+        }
+
+        value = firstDelay.trim();
+
+        if (value.slice(-2) === 'ms') {
+          return Number(value.slice(0, -2));
+        }
+
+        if (value.slice(-1) === 's') {
+          return Number(value.slice(0, -1)) * 1000;
+        }
+
+        return null;
+      }
+
+      function initGifPlayers() {
+        var titleStartDelay;
+
+        if (!gifPlayers.length) {
+          return;
+        }
+
+        titleStartDelay = getFirstAnimationDelayMs(titleTrigger);
+
+        gifPlayers.forEach(function (player) {
+          var trigger = player.getAttribute('data-gif-trigger');
+          var delay = Number(player.getAttribute('data-gif-delay')) || 0;
+
+          if (trigger === 'title-start') {
+            return;
+          }
+
+          window.setTimeout(function () {
+            startGif(player);
+          }, Math.max(delay - GIF_START_ADVANCE_MS, 0));
+        });
+
+        if (titleTrigger) {
+          if (titleStartDelay !== null) {
+            window.setTimeout(function () {
+              gifPlayers.forEach(function (player) {
+                if (player.getAttribute('data-gif-trigger') === 'title-start') {
+                  startGif(player);
+                }
+              });
+            }, Math.max(titleStartDelay - GIF_START_ADVANCE_MS, 0));
+          } else {
+            titleTrigger.addEventListener('animationstart', function (event) {
+              if (event.animationName === 'titleCurrentEnter') {
+                gifPlayers.forEach(function (player) {
+                  if (player.getAttribute('data-gif-trigger') === 'title-start') {
+                    startGif(player);
+                  }
+                });
+              }
+            }, { once: true });
+          }
+        }
+      }
+
+      function initEB() {
+        initGifPlayers();
+
+        if (hasEB()) {
+          if (!window.EB.isInitialized()) {
+            window.EB.addEventListener(window.EBG.EventName.EB_INITIALIZED, startAd);
+          } else {
+            startAd();
+          }
+          return;
+        }
+
+        startAd();
+      }
+
+      window.addEventListener('load', initEB);
+    })();
+  </script>
+</body>
+</html>
